@@ -1,28 +1,28 @@
 class Solution:
 
     def encode(self, strs: List[str]) -> str:
-        #Chunked Encoding風のアプローチ
         res = ""
         for s in strs:
+            #lenが返すのはint → strに変換
             res += str(len(s)) + "#" + s
-
+        
         return res
 
     def decode(self, s: str) -> List[str]:
         res = []
         i = 0
         while i < len(s):
-            # "#" を探す
             j = i
+            #ifではなくwhileで
+            # "#"のギリギリ手前まで行きたいから
             while s[j] != "#":
                 j += 1
-
-            # 次に、長さを取得
+            #sはstr → intに変換    
             length = int(s[i:j])
-            #2ケタ以上の長さの場合を考慮
 
-            #長さの分だけ抽出
-            res.append(s[j + 1: j + 1 + length])
+            # += すると要素をバラバラにして格納する
+            # よってappendを使用する
+            res.append(s[j + 1 : j + 1 + length])
 
             i = j + 1 + length
 
