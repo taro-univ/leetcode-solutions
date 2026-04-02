@@ -14,6 +14,7 @@ LeetCode の Arrays & Hashing カテゴリの解答まとめ。
 | 238 | [Product of Array Except Self](#238-product-of-array-except-self) | Medium | 左右積 (ピンサー) | O(n) |
 | 271 | [Encode and Decode Strings](#271-encode-and-decode-strings) | Medium | 長さプレフィックス | O(n) |
 | 36 | [Valid Sudoku](#36-valid-sudoku) | Medium | ハッシュセット | O(1) |
+| 128 | [Longest Consecutive Sequence](#128-longest-consecutive-sequence) | Medium | ハッシュセット | O(n) |
 
 ---
 
@@ -135,3 +136,25 @@ index = (r // 3) * 3 + (c // 3)  # 3×3ブロックのインデックス計算
 ### 計算量
 - 時間: O(1)（盤面サイズ固定 9×9）
 - 空間: O(1)（固定サイズのセット）
+
+---
+
+## 128. Longest Consecutive Sequence
+
+**ファイル:** `longestConsecutive.py`
+
+### アプローチ — ハッシュセット + 連続列の始点探索
+全要素を `set` に変換し、「連続列の始点 (n-1 がセットにない要素)」からのみ連続カウントを開始する。始点以外はスキップするため、各要素は最大1回しか処理されない。
+
+```python
+num_set = set(nums)
+for n in num_set:
+    if n - 1 not in num_set:  # 始点の判定
+        while current_num + 1 in num_set:
+            current_num += 1
+            current_streak += 1
+```
+
+### 計算量
+- 時間: O(n)
+- 空間: O(n)
